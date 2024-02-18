@@ -9,11 +9,13 @@ def saltedPassword(): # (image_path, password) password instead of testpassword
 
     testpassword = "campustheboulderderek"
 
+    testpassword = testpassword+"~"
+
     #convert password to binary
     passwordBin = ''.join(format(ord(i), '08b') for i in testpassword)
 
     #modify a bit of each pixel to encode the password
-    newPixels= []
+    newPixels = []
     passIndex = 0
     for pixel in pixelarr:
         newPixel = list(pixel)
@@ -27,6 +29,7 @@ def saltedPassword(): # (image_path, password) password instead of testpassword
 
     #changes the image to the new image with password incoded
     newImage = Image.new(image.mode, image.size)
+    newImage.putdata(newPixels)
     newImage.save("ChuckblastLOSS.png")
 
     # for i in range(100):
@@ -48,10 +51,17 @@ def unsaltPassword():
         for i in range(3):
             passwordBin += str(pixel[i] & 1)
 
-    password = ''.join(chr(int(passwordBin[i:i+8], 2)) for i in range(0, len(passwordBin), 8))
+    password = ''
+    for i in range(0,len(passwordBin), 8):
+        if chr(int(passwordBin[i:i+8], 2)) == '~':
+            break
+        else:
+            password += "".join(chr(int(passwordBin[i:i+8], 2)))
 
     print(password)
 
+   
+   
 
 
 
