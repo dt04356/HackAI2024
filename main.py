@@ -1,4 +1,5 @@
 import application
+import GUI
 import imageTesting
 
 def main():
@@ -8,5 +9,6 @@ def main():
     imageTesting.saltedPassword(url,pas)
     imageTesting.unsaltPassword()
 
+GUI.GUI()
 main()
     
