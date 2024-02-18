@@ -15,6 +15,15 @@ def pullImage(str):
         quality="standard",
         n=1,
     )
-    print(response)
+    newjson = response.model_dump_json()
+    url = parseResponse(newjson)
+    
+def parseResponse(response):
+    url = ''
+    ln = len(response)
+    place = response.find('url')
+    url = response[place+6:ln-4]
+    return url
+
 
 pullImage("a cat with a hat")
