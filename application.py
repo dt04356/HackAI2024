@@ -17,6 +17,7 @@ def pullImage(str):
     )
     newjson = response.model_dump_json()
     url = parseResponse(newjson)
+    return url
     
 def parseResponse(response):
     url = ''
