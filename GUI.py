@@ -1,10 +1,14 @@
 #gui implementation
 from tkinter import Label
+import tkinter
+import imageTesting
+import application
 from tkinter import *
 
 def GUI():
     root = Tk()
-
+    pssword_var= tkinter.StringVar()
+    input_var = tkinter.StringVar()
     #makes the encrypt file
     root.title("My password encryptr")
     root.geometry('300x120')
@@ -30,17 +34,20 @@ def GUI():
     #NEED TO EXECUTE DECRYPTION AFTER CLICK OF THIS BUTTON
     def clickExeDecrypt():
         lbl = Label(root, text = "DECRYPTING")
+        imageTesting.unsaltPassword()
         lbl.grid()
 
 
     #choose to encrypt and produces the texts for it
     def clickEncrypt():
-        enc = Label(root, text = "enter desired password")
+        enc = Label(root, text = "enter desired image and desired password")
         enc.grid(column = 0, row = 3)
+        imageIN = Entry(root,textvariable=input_var,width=20)
+        imageIN.grid(column=1,row=3)
 
-        password = Entry(root, width = 20)
-        password.grid(column = 1, row = 3)
-
+        password = Entry(root,textvariable = pssword_var,width = 20)
+        password.grid(column = 2, row = 3)
+        
         btn2 = Button(root, text = "Execute Encryption", fg = "blue", command = clickExeEncrypt)
         btn2.grid(column = 1, row = 4)
 
@@ -48,6 +55,10 @@ def GUI():
     #NEED TO EXECUTE ENCRYTION AFTER THE CLICK OF THIS BUTTON
     def clickExeEncrypt():
         lbl = Label(root, text = "ENCRYPTING")
+        img = input_var.get()
+        url = application.pullImage(img)
+        psswrd = pssword_var.get()
+        imageTesting.saltedPassword(url,psswrd)
         lbl.grid()
 
 
